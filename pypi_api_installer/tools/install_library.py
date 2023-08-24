@@ -19,4 +19,4 @@ def install_library (lib_name:str, version:str, download_location_path:str):
             file.write(chunk)
 
 if __name__ == "__main__":
-    install_library("requests", "2.31.0", "./requests.tar.gz")
+    install_library("requests", "2.31.0", "./")

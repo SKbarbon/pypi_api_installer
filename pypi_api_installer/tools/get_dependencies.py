@@ -9,11 +9,12 @@ def get_library_dependency(meta_data_string:str):
             pkg_name = pkg_name.replace("Requires-Dist: ", "")
 
             real_pkg_name = ""
+            stillComplete = True
             for i in pkg_name:
-                if i != "(" and i != ")":
+                if i != "(" and i != ")" and i != ";" and stillComplete == True:
                     real_pkg_name = real_pkg_name + i
                 else:
-                    break
+                    stillComplete = False
             package_reqs.append(real_pkg_name.replace(" ", ""))
     
     return package_reqs

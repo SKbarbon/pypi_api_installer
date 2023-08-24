@@ -1,6 +1,10 @@
+import requests, json
 
 
+URL = f"https://pypi.org/pypi/requests/json"
 
-from pypi_api_installer import uncompress_library
+r = requests.get(URL).text
+r = json.loads(r)
 
-uncompress_library("requests.tar.gz", "site-packages/requests")
+for i in r['info']['requires_dist']:
+    print(i)

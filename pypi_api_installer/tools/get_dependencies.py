@@ -1,23 +1,21 @@
+import requests, json
 
-
-def get_library_dependency(meta_data_string:str):
+def get_library_dependency(lib_name:str):
     """Get the required packages by the library, returns a list of package names"""
     package_reqs = []
-    for line in meta_data_string.split("\n"):
-        if line.startswith("Requires-Dist:"):
-            pkg_name : str = line.replace("Requires-Dist:", "")
-            pkg_name = pkg_name.replace("Requires-Dist: ", "")
+    get_dpdns = json.loads(requests.get(f"https://pypi.org/pypi/{lib_name}/json").text)['info']['requires_dist']
 
-            real_pkg_name = ""
-            stillComplete = True
-            for i in pkg_name:
-                if i != "(" and i != ")" and i != ";" and stillComplete == True:
-                    real_pkg_name = real_pkg_name + i
-                else:
-                    stillComplete = False
-            package_reqs.append(real_pkg_name.replace(" ", ""))
+    for pkn in get_dpdns:
+        full_name = ""
+        complete_getten_litters = True
+        for n in pkn:
+            if n != "(" and n != ")" and n != ";" and complete_getten_litters:
+                full_name = full_name + n
+            else:
+                complete_getten_litters = False
+        package_reqs.append(full_name.replace(" ", ""))
     
     return package_reqs
 
 if __name__ == "__main__":
-    pass
+    print(get_library_dependency("requests"))

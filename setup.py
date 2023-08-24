@@ -5,7 +5,7 @@ with open("README.md", encoding="utf-8") as f:
 
 setup(
     name='pypi_api_installer',
-    version='1.3',
+    version='1.3.2',
     author='SKbarbon',
     description='A python library with a set of tools for installing packages from pypi dynamically',
     long_description=long_des,

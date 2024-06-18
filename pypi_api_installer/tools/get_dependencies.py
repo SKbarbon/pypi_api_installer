@@ -1,10 +1,18 @@
 import requests, json
 
-def get_library_dependency(lib_name:str):
-    """Get the required packages by the library, returns a list of package names"""
+def get_library_dependency_names(lib_name:str):
+    """Get the library's required packages and return a list of their names."""
     package_reqs = []
-    get_dpdns = json.loads(requests.get(f"https://pypi.org/pypi/{lib_name}/json").text)['info']['requires_dist']
 
+    try:
+        get_dpdns = json.loads(requests.get(f"https://pypi.org/pypi/{lib_name}/json").text)['info']['requires_dist']
+    except:
+        raise Exception("There was an error while trying to fetch dependencies.")
+
+    # If not dpnts
+    if get_dpdns is None: return []
+
+    # Index dpnts
     for pkn in get_dpdns:
         full_name = ""
         complete_getten_litters = True
@@ -18,4 +26,4 @@ def get_library_dependency(lib_name:str):
     return package_reqs
 
 if __name__ == "__main__":
-    print(get_library_dependency("requests"))
+    print(get_library_dependency_names("requests"))

@@ -1,10 +1,4 @@
-import requests, json
+from pypi_api_installer import MagicLibraryInstaller
 
 
-URL = f"https://pypi.org/pypi/googletrans/json"
-
-r = requests.get(URL).text
-r = json.loads(r)
-print(r['info'])
-for i in r['info']['requires_dist']:
-    print(i)
+MagicLibraryInstaller("requests", lib_folder_path="custom_lib")
